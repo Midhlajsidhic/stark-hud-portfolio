@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STARK HUD // MIDHLAJ SIDHICK PORTFOLIO</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="stark-hud">
+    <!-- Grid Scanline Overlay -->
+    <div class="hud-grid-overlay"></div>
+    <div class="hud-scanline"></div>
+
+    <!-- MAIN HEADER -->
+    <header class="hud-header">
+        <div class="header-left">
+            <span class="stark-logo">STARK INDUSTRIES</span>
+            <span class="system-status">SYS_STATUS: <span id="sys-status-text" class="text-warning">STANDBY [10%]</span></span>
+        </div>
+        <div class="header-center">
+            <h1>MARK_80 // INVENT_LAB_PORTFOLIO</h1>
+        </div>
+        <div class="header-right">
+            <span class="datetime" id="hud-time">00:00:00 UTC</span>
+            <span class="security-level">SEC_LEVEL: 05 [RESTRICTED]</span>
+        </div>
+    </header>
+
+    <!-- HUD FRAMEWORK -->
+    <main class="hud-container">
+        <!-- LEFT HUD COLUMN: SYSTEM DIAGNOSTICS & JARVIS CONSOLE -->
+        <section class="hud-column left-pane">
+            <!-- WIDGET 1: ARC REACTOR CONTROLLER -->
+            <div class="hud-panel reactor-panel">
+                <div class="panel-header">
+                    <span class="bracket-decor"></span>
+                    <h3>ARC_REACTOR_MARK_80</h3>
+                </div>
+                <div class="panel-body flex-center">
+                    <div class="arc-reactor-wrapper" id="reactor-trigger">
+                        <div class="outer-ring"></div>
+                        <div class="middle-ring"></div>
+                        <div class="inner-core">
+                            <span class="power-readout" id="reactor-power">10%</span>
+                        </div>
+                        <!-- Hexagonal segment indicators -->
+                        <div class="reactor-segment s1"></div>
+                        <div class="reactor-segment s2"></div>
+                        <div class="reactor-segment s3"></div>
+                        <div class="reactor-segment s4"></div>
+                        <div class="reactor-segment s5"></div>
+                        <div class="reactor-segment s6"></div>
+                    </div>
+                    <p class="click-prompt" id="reactor-prompt">CLICK TO INITIALIZE POWER GRID</p>
+                </div>
+            </div>
+
+            <!-- WIDGET 2: TELEMETRY GRAPHS -->
+            <div class="hud-panel telemetry-panel">
+                <div class="panel-header">
+                    <span class="bracket-decor"></span>
+                    <h3>TELEMETRY_DIAGNOSTICS</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="telemetry-item">
+                        <div class="telemetry-label"><span>EDR_LOG_FLOW</span><span id="log-flow-pct">12 bps</span></div>
+                        <div class="graph-bar"><div class="graph-fill" id="fill-log" style="width: 15%"></div></div>
+                    </div>
+                    <div class="telemetry-item">
+                        <div class="telemetry-label"><span>VAPT_SCAN_RATE</span><span id="scan-rate-pct">8%</span></div>
+                        <div class="graph-bar"><div class="graph-fill" id="fill-scan" style="width: 8%"></div></div>
+                    </div>
+                    <div class="telemetry-item">
+                        <div class="telemetry-label"><span>AWS_CPU_LOAD</span><span id="cpu-load-pct">14%</span></div>
+                        <div class="graph-bar"><div class="graph-fill" id="fill-cpu" style="width: 14%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WIDGET: JARVIS VOICE CONTROL -->
+            <div class="hud-panel voice-panel">
+                <div class="panel-header">
+                    <span class="bracket-decor"></span>
+                    <h3>JARVIS_VOICE_CONTROL</h3>
+                </div>
+                <div class="panel-body flex-center" style="gap: 0.5rem; text-align: center;">
+                    <button id="voice-btn" class="hud-btn-voice">🎤 ACTIVATE VOICE SYSTEM</button>
+                    <span id="voice-status" class="text-warning">MIC_STATUS: STANDBY</span>
+                    <p class="voice-help" style="font-size: 0.8rem; color: #8a9fc4; margin-top: 0.5rem;">
+                        Commands: "Jarvis start", "Show skills", "Show experience", "Jarvis, who is Midhlaj?"
+                    </p>
+                </div>
+            </div>
+
+            <!-- WIDGET 3: JARVIS CONSOLE LOG FEED -->
+            <div class="hud-panel jarvis-panel">
+                <div class="panel-header">
+                    <span class="bracket-decor"></span>
+                    <h3>JARVIS_COMM_FEED</h3>
+                </div>
+                <div class="panel-body console-body" id="jarvis-console">
+                    <div class="console-row system-msg">[SYSTEM] Stark Diagnostic OS v80.1 initialized...</div>
+                    <div class="console-row system-msg">[SYSTEM] Awaiting power reactor synchronization...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CENTER HUD COLUMN: THE MAIN RESUME DATA (HOLOGRAMS) -->
+        <section class="hud-column center-pane disabled-hud" id="main-resume-pane">
+            <div class="resume-tabs no-print">
+                <button class="tab-btn active" data-tab="tab-summary">DIAGNOSTIC</button>
+                <button class="tab-btn" data-tab="tab-skills">ARMORY</button>
+                <button class="tab-btn" data-tab="tab-experience">MISSIONS</button>
+                <button class="tab-btn" data-tab="tab-projects">CORES</button>
+                <button class="tab-btn" data-tab="tab-credentials">BADGES</button>
+            </div>
+
+            <!-- TAB 1: SUMMARY & CONTACT -->
+            <div class="resume-tab-content active" id="tab-summary">
+                <div class="hologram-card">
+                    <div class="card-decor top-left"></div>
+                    <div class="card-decor top-right"></div>
+                    <div class="card-decor bottom-left"></div>
+                    <div class="card-decor bottom-right"></div>
+                    
+                    <div class="hologram-header">
+                        <h2>IDENTITY_DIAGNOSTICS // MIDHLAJ SIDHICK</h2>
+                        <span class="hologram-tag">TARGET: SECURITY ENGINEER</span>
+                    </div>
+                    
+                    <div class="hologram-body">
+                        <p class="summary-paragraph">
+                            Results-driven Computer Science (Cybersecurity) graduate with hands-on experience in Security Operations (SOC), AWS cloud security, and Linux administration (AlmaLinux/Ubuntu Server). Skilled in scripting, system auditing, and network security configuration. Proven leadership capabilities as Department Chairman and NSS Secretary. Seeking entry-level roles in SOC, Cloud/Security Operations, or Linux Support.
+                        </p>
+                        
+                        <div class="contact-telemetry">
+                            <h3>COMMUNICATION_CHANNELS</h3>
+                            <div class="telemetry-grid">
+                                <div class="tele-box">
+                                    <span class="label">COMMS_LINK</span>
+                                    <span class="value"><a href="tel:+919605114550">+91 9605114550</a></span>
+                                </div>
+                                <div class="tele-box">
+                                    <span class="label">SECURE_MAIL</span>
+                                    <span class="value"><a href="mailto:midhlajsidhick1@gmail.com">midhlajsidhick1@gmail.com</a></span>
+                                </div>
+                                <div class="tele-box">
+                                    <span class="label">SECURE_NET</span>
+                                    <span class="value"><a href="https://linkedin.com/in/midhlaj-sidick007" target="_blank">LinkedIn Profile</a></span>
+                                </div>
+                                <div class="tele-box">
+                                    <span class="label">PORTFOLIO_NET</span>
+                                    <span class="value"><a href="https://midhlajsidhic.github.io/cyber-portfolio/" target="_blank">midhlajsidhic.github.io/cyber-portfolio/</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: SKILLS MODULE -->
+            <div class="resume-tab-content" id="tab-skills">
+                <div class="hologram-card">
+                    <div class="card-decor top-left"></div>
+                    <div class="card-decor top-right"></div>
+                    <div class="card-decor bottom-left"></div>
+                    <div class="card-decor bottom-right"></div>
+
+                    <div class="hologram-header">
+                        <h2>ARMORY_MODULES // SKILLS MATRIX</h2>
+                        <span class="hologram-tag">READY FOR DEPLOYMENT</span>
+                    </div>
+
+                    <div class="hologram-body skills-hud-grid">
+                        <div class="skill-group">
+                            <h4>SECURITY_OPS & SIEM</h4>
+                            <ul>
+                                <li>Log Auditing & Analysis</li>
+                                <li>Threat Detection & Alert Triage</li>
+                                <li>Incident Response Workflows</li>
+                                <li>ELK Stack Integration (Basics)</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group">
+                            <h4>VAPT & OFFENSIVE_SEC</h4>
+                            <ul>
+                                <li>Network Recon & Scanning</li>
+                                <li>Vulnerability Assessment</li>
+                                <li>Penetration Testing Simulations</li>
+                                <li>OWASP Top 10 Audits</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group">
+                            <h4>SYSTEMS, CLOUD & NETWORKS</h4>
+                            <ul>
+                                <li>Linux (AlmaLinux, Rocky, Ubuntu, Kali)</li>
+                                <li>AWS (EC2, S3, IAM, VPC)</li>
+                                <li>Windows Server Administration</li>
+                                <li>TCP/IP, Firewalls, Routing</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group">
+                            <h4>PROGRAMMING & AUTOMATION</h4>
+                            <ul>
+                                <li>Python (Security Automation, Scripting)</li>
+                                <li>Bash Scripting</li>
+                                <li>Git, GitHub Workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: MISSIONS EXPERIENCE -->
+            <div class="resume-tab-content" id="tab-experience">
+                <div class="hologram-card">
+                    <div class="card-decor top-left"></div>
+                    <div class="card-decor top-right"></div>
+                    <div class="card-decor bottom-left"></div>
+                    <div class="card-decor bottom-right"></div>
+
+                    <div class="hologram-header">
+                        <h2>COMPLETED_MISSIONS // EXPERIENCE</h2>
+                        <span class="hologram-tag">CHRONOLOGICAL RECORD</span>
+                    </div>
+
+                    <div class="hologram-body experience-timeline">
+                        <div class="timeline-item">
+                            <div class="time-header">
+                                <span class="time-title">Server Administrator Intern</span>
+                                <span class="time-date">May 2026 – Present</span>
+                            </div>
+                            <span class="time-agency">Hashroot | Kakkanad, Kochi (Infopark)</span>
+                            <ul class="time-bullets">
+                                <li>Assisted in Linux (AlmaLinux, Ubuntu) and Windows server administration, user management, and security patch deployments.</li>
+                                <li>Configured remote access protocols (SSH, firewalls) and deployed infrastructure monitoring agents on AWS instances (EC2, S3).</li>
+                            </ul>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="time-header">
+                                <span class="time-title">Cybersecurity & Ethical Hacking Intern</span>
+                                <span class="time-date">June 2025</span>
+                            </div>
+                            <span class="time-agency">Techmagi | Kakkanad, Kochi</span>
+                            <ul class="time-bullets">
+                                <li>Performed network scanning, host reconnaissance, and vulnerability analysis using Nmap and Burp Suite in sandboxed lab environments.</li>
+                                <li>Analyzed network traffic logs with Wireshark and drafted technical VAPT reports mapping findings to CVSS metrics.</li>
+                            </ul>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="time-header">
+                                <span class="time-title">Ethical Hacking Intern</span>
+                                <span class="time-date">Jan 2025</span>
+                            </div>
+                            <span class="time-agency">Techbyheart | Kochi, Kerala</span>
+                            <ul class="time-bullets">
+                                <li>Conducted vulnerability assessments and penetration testing simulations on Linux-based virtual environments.</li>
+                                <li>Identified weaknesses in standard services (SSH, FTP) and offered actionable remediation solutions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CORES PROJECTS -->
+            <div class="resume-tab-content" id="tab-projects">
+                <div class="hologram-card">
+                    <div class="card-decor top-left"></div>
+                    <div class="card-decor top-right"></div>
+                    <div class="card-decor bottom-left"></div>
+                    <div class="card-decor bottom-right"></div>
+
+                    <div class="hologram-header">
+                        <h2>PROTOTYPE_CORES // PROJECTS</h2>
+                        <span class="hologram-tag">ENGINEERED WORK</span>
+                    </div>
+
+                    <div class="hologram-body experience-timeline">
+                        <div class="timeline-item">
+                            <div class="time-header">
+                                <span class="time-title">AI Endpoint Detection & Response (EDR)</span>
+                                <span class="time-tech">Python, LLM</span>
+                            </div>
+                            <ul class="time-bullets">
+                                <li>Engineered a simulated EDR host agent to monitor operating system logs and detect threat patterns in real-time.</li>
+                                <li>Built a Python-based pipeline to parse logs, integrating an LLM classifier to reduce triage overhead by 40%.</li>
+                                <li>Programmed automated response actions (e.g. process termination) upon high-risk threat triggers.</li>
+                            </ul>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="time-header">
+                                <span class="time-title">Wireless Device Localization System</span>
+                                <span class="time-tech">ESP32, Python GUI</span>
+                            </div>
+                            <ul class="time-bullets">
+                                <li>Developed a hardware-software system using ESP32 to monitor wireless networks and localize Wi-Fi/Bluetooth signals with ~95% accuracy.</li>
+                                <li>Created a custom Python desktop GUI for real-time visualization of tracked physical devices and signal logs.</li>
+                            </ul>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="time-header">
+                                <span class="time-title">AI Security & Prompt Injection Testing</span>
+                                <span class="time-tech">AI Threat Research</span>
+                            </div>
+                            <ul class="time-bullets">
+                                <li>Analyzed LLM prompt injection and security manipulation techniques, mapping findings to the OWASP Top 10 for LLMs.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: BADGES & CERTIFICATIONS -->
+            <div class="resume-tab-content" id="tab-credentials">
+                <div class="hologram-card">
+                    <div class="card-decor top-left"></div>
+                    <div class="card-decor top-right"></div>
+                    <div class="card-decor bottom-left"></div>
+                    <div class="card-decor bottom-right"></div>
+
+                    <div class="hologram-header">
+                        <h2>INVENTORY_BADGES // CREDENTIALS & CTFs</h2>
+                        <span class="hologram-tag">VERIFIED DATABASES</span>
+                    </div>
+
+                    <div class="hologram-body badges-grid">
+                        <div class="badge-category">
+                            <h3>CERTIFIED_CREDENTIALS</h3>
+                            <ul class="bullet-list-hud">
+                                <li><strong>Ethical Hacking:</strong> Offense Hackers Academy</li>
+                                <li><strong>Ethical Hacking:</strong> Cisco Networking Academy</li>
+                                <li><strong>Foundations of Cybersecurity:</strong> Google Certificate</li>
+                            </ul>
+                        </div>
+
+                        <div class="badge-category">
+                            <h3>VICTORIES_&_COMMENDATIONS</h3>
+                            <ul class="bullet-list-hud">
+                                <li>🏆 <strong>3rd Place — National CTF</strong> (ASIET Hackathon): Competed against 50+ collegiate teams nationwide in cryptography, forensics, and web challenges.</li>
+                                <li>🎯 <strong>Advent of Cyber 2024</strong> (TryHackMe): Completed 24 days of hands-on challenges covering SOC monitoring and cloud security labs.</li>
+                            </ul>
+                        </div>
+
+                        <div class="badge-category">
+                            <h3>LEADERSHIP_REGISTRY</h3>
+                            <ul class="bullet-list-hud">
+                                <li>👔 <strong>Department Chairman (AI & CS):</strong> Managed 15+ student coordinators to host tech hackathons for 300+ peers.</li>
+                                <li>🤝 <strong>NSS Volunteer Secretary:</strong> Managed regional community camps and team coordination.</li>
+                                <li>🎓 <strong>College Union Representative:</strong> Elected representative advocating for student academic and cultural programs.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="hud-footer no-print">
+        <p>STARK INDUSTRIES SYSTEM OS // FRIDAY v8.2 // INTEGRATED DATA DEPLOYMENT</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

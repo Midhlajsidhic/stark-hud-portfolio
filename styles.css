@@ -1,0 +1,861 @@
+/* ==========================================================================
+   STARK HUD DESIGN SYSTEM (VANILLA CSS)
+   ========================================================================== */
+:root {
+    --bg-color: #030611;
+    --hud-cyan: #00f0ff;
+    --hud-cyan-glow: rgba(0, 240, 255, 0.4);
+    --hud-orange: #ff7300;
+    --hud-orange-glow: rgba(255, 115, 0, 0.4);
+    --hud-red: #ff3b30;
+    --hud-yellow: #ffbd2e;
+    
+    --panel-bg: rgba(6, 12, 28, 0.7);
+    --panel-border: rgba(0, 240, 255, 0.15);
+    
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Rajdhani', sans-serif;
+    --font-mono: 'Courier Prime', monospace;
+}
+
+/* Reset & Setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.stark-hud {
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(10, 25, 50, 0.4) 0%, rgba(3, 6, 17, 1) 90%),
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 30px 30px, 30px 30px;
+    background-position: center, center, center;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Grid overlay & scanline animations */
+.hud-grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.hud-scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 240, 255, 0.15);
+    box-shadow: 0 0 15px var(--hud-cyan);
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.5;
+    animation: scan 6s linear infinite;
+}
+
+@keyframes scan {
+    0% { top: -10px; }
+    100% { top: 100vh; }
+}
+
+/* Utility Colors */
+.text-cyan { color: var(--hud-cyan); }
+.text-orange { color: var(--hud-orange); }
+.text-warning { color: var(--hud-yellow); }
+.text-success { color: #00ff66; }
+.text-danger { color: var(--hud-red); }
+
+/* ==========================================================================
+   HEADER STYLE
+   ========================================================================== */
+.hud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    background: rgba(4, 9, 21, 0.85);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+    font-family: var(--font-heading);
+}
+
+.stark-logo {
+    color: var(--hud-red);
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-right: 1.5rem;
+    text-shadow: 0 0 10px rgba(255, 59, 48, 0.4);
+}
+
+.system-status {
+    font-size: 0.85rem;
+    color: #8a9fc4;
+}
+
+.header-center h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--hud-cyan);
+    text-shadow: 0 0 15px var(--hud-cyan-glow);
+}
+
+.datetime, .security-level {
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--hud-cyan);
+    margin-left: 1.5rem;
+}
+
+/* ==========================================================================
+   HUD COLUMN GRID LAYOUT
+   ========================================================================== */
+.hud-container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    height: calc(100vh - 75px);
+}
+
+.hud-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+    scrollbar-width: none; /* Hide scrollbar for standard HUD feel */
+}
+
+.hud-column::-webkit-scrollbar {
+    display: none;
+}
+
+/* Disabled pane styling before boot sequence triggers */
+.disabled-hud {
+    opacity: 0.15;
+    pointer-events: none;
+    filter: blur(1.5px);
+    transition: opacity 1.5s ease, filter 1.5s ease;
+}
+
+.active-hud {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    filter: none !important;
+}
+
+/* ==========================================================================
+   HUD PANEL WIDGET STYLE
+   ========================================================================== */
+.hud-panel {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 4px;
+    box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.panel-header {
+    border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+    padding: 0.6rem 1rem;
+    background: rgba(0, 240, 255, 0.03);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.bracket-decor {
+    width: 4px;
+    height: 12px;
+    background: var(--hud-orange);
+    box-shadow: 0 0 8px var(--hud-orange);
+}
+
+.panel-header h3 {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--hud-cyan);
+    letter-spacing: 1px;
+}
+
+.panel-body {
+    padding: 1.2rem;
+    flex: 1;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   WIDGET 1: ARC REACTOR DESIGN
+   ========================================================================== */
+.arc-reactor-wrapper {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 4px double rgba(0, 240, 255, 0.15);
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.05);
+    transition: transform 0.3s;
+}
+
+.arc-reactor-wrapper:hover {
+    transform: scale(1.03);
+}
+
+.outer-ring {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 3px dashed var(--hud-cyan);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: rotate-cw 20s linear infinite;
+    box-shadow: 0 0 10px var(--hud-cyan-glow);
+}
+
+.middle-ring {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 2px solid var(--hud-orange);
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: rotate-ccw 10s linear infinite;
+}
+
+.inner-core {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.9) 0%, rgba(5, 15, 35, 0.9) 80%);
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 25px var(--hud-cyan);
+    z-index: 10;
+}
+
+.power-readout {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 850;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+/* Hexagonal decorative segment cells around reactor */
+.reactor-segment {
+    position: absolute;
+    width: 25px;
+    height: 12px;
+    background: rgba(0, 240, 255, 0.15);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    z-index: 2;
+    transform-origin: 12.5px 85px;
+    left: calc(50% - 12.5px);
+    top: 0;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.reactor-segment.s1 { transform: rotate(0deg); }
+.reactor-segment.s2 { transform: rotate(60deg); }
+.reactor-segment.s3 { transform: rotate(120deg); }
+.reactor-segment.s4 { transform: rotate(180deg); }
+.reactor-segment.s5 { transform: rotate(240deg); }
+.reactor-segment.s6 { transform: rotate(300deg); }
+
+/* Powered Up Active States */
+.reactor-powered .outer-ring {
+    opacity: 1;
+    animation-duration: 4s;
+    border-style: dotted;
+}
+
+.reactor-powered .middle-ring {
+    opacity: 1;
+    animation-duration: 2s;
+    border-color: var(--hud-cyan);
+    border-top-color: transparent;
+}
+
+.reactor-powered .inner-core {
+    background: radial-gradient(circle, #ffffff 0%, var(--hud-cyan) 60%, rgba(3,6,17,1) 100%);
+    box-shadow: 0 0 50px var(--hud-cyan), inset 0 0 20px #ffffff;
+}
+
+.reactor-powered .reactor-segment {
+    background: var(--hud-cyan);
+    border-color: #ffffff;
+    box-shadow: 0 0 12px var(--hud-cyan);
+}
+
+.click-prompt {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--hud-orange);
+    margin-top: 1rem;
+    letter-spacing: 1.5px;
+    animation: flash 1.5s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+@keyframes rotate-cw {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-ccw {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* ==========================================================================
+   WIDGET 2: TELEMETRY & CHARTS
+   ========================================================================== */
+.telemetry-item {
+    margin-bottom: 0.85rem;
+}
+
+.telemetry-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #8a9fc4;
+    margin-bottom: 0.25rem;
+}
+
+.graph-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 240, 255, 0.05);
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.graph-fill {
+    height: 100%;
+    background: var(--hud-cyan);
+    box-shadow: 0 0 8px var(--hud-cyan);
+    transition: width 0.8s ease-out;
+}
+
+/* ==========================================================================
+   WIDGET 3: JARVIS CONSOLE LOG FEED
+   ========================================================================== */
+.console-body {
+    height: 250px;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    scrollbar-width: none;
+}
+
+.console-row {
+    padding: 0.15rem 0.25rem;
+    border-radius: 2px;
+    line-height: 1.3;
+}
+
+.system-msg { color: #8a9fc4; }
+.jarvis-msg { color: var(--hud-cyan); }
+.success-msg { color: #00ff66; background-color: rgba(0, 255, 102, 0.05); }
+.danger-msg { color: var(--hud-red); background-color: rgba(255, 59, 48, 0.05); }
+
+/* ==========================================================================
+   CENTER COLUMN: DATA PANELS (HOLOGRAM RESUME CARD)
+   ========================================================================== */
+.center-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.resume-tabs {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    color: #8a9fc4;
+    padding: 0.5rem 1.2rem;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-btn:hover {
+    color: white;
+    border-color: var(--hud-cyan);
+    background: rgba(0, 240, 255, 0.02);
+}
+
+.tab-btn.active {
+    color: var(--hud-cyan);
+    border-color: var(--hud-cyan);
+    background: rgba(0, 240, 255, 0.08);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+}
+
+/* Hologram card style */
+.hologram-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 
+        inset 0 0 25px rgba(0, 240, 255, 0.05),
+        0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+/* Decorative corner brackets */
+.card-decor {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--hud-cyan);
+    pointer-events: none;
+}
+
+.card-decor.top-left { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.card-decor.top-right { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+.card-decor.bottom-left { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+.card-decor.bottom-right { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+.hologram-header {
+    border-bottom: 2px double rgba(0, 240, 255, 0.2);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hologram-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--hud-cyan);
+    text-shadow: 0 0 10px var(--hud-cyan-glow);
+}
+
+.hologram-tag {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--hud-orange);
+    border: 1px solid var(--hud-orange);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+}
+
+.hologram-body {
+    flex: 1;
+}
+
+.resume-tab-content {
+    display: none;
+    flex: 1;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.resume-tab-content.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   TAB 1: DIAGNOSTIC DETAILS (SUMMARY)
+   ========================================================================== */
+.summary-paragraph {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    margin-bottom: 2rem;
+    text-align: justify;
+}
+
+.contact-telemetry h3 {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: var(--hud-orange);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.tele-box {
+    background: rgba(0, 240, 255, 0.02);
+    border: 1px solid rgba(0, 240, 255, 0.08);
+    padding: 0.85rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tele-box .label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #8a9fc4;
+}
+
+.tele-box .value {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.tele-box .value a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tele-box .value a:hover {
+    color: var(--hud-cyan);
+    text-shadow: 0 0 8px var(--hud-cyan-glow);
+}
+
+/* ==========================================================================
+   TAB 2: ARMORY DETAILS (SKILLS GRID)
+   ========================================================================== */
+.skills-hud-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.skill-group {
+    background: rgba(255, 115, 0, 0.01);
+    border: 1px solid rgba(255, 115, 0, 0.05);
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(255, 115, 0, 0.02);
+}
+
+.skill-group h4 {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--hud-orange);
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 115, 0, 0.15);
+    padding-bottom: 0.25rem;
+}
+
+.skill-group ul {
+    list-style: none;
+    padding-left: 0.25rem;
+}
+
+.skill-group li {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.skill-group li::before {
+    content: "▫";
+    color: var(--hud-cyan);
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   TAB 3 & 4: TIMELINES (EXPERIENCE & PROJECTS)
+   ========================================================================== */
+.experience-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.timeline-item {
+    border-left: 2px solid var(--hud-cyan);
+    padding-left: 1rem;
+    margin-left: 0.5rem;
+    position: relative;
+    padding-bottom: 0.25rem;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: var(--hud-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--hud-cyan);
+}
+
+.time-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.time-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.time-date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--hud-orange);
+}
+
+.time-agency, .time-tech {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    color: var(--hud-cyan);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.time-bullets {
+    list-style: none;
+    padding-left: 0.25rem;
+}
+
+.time-bullets li {
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: #cbd5e1;
+    margin-bottom: 0.35rem;
+}
+
+.time-bullets li::before {
+    content: "» ";
+    color: var(--hud-cyan);
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   TAB 5: BADGES GRID
+   ========================================================================== */
+.badges-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.badge-category {
+    background: rgba(0, 240, 255, 0.01);
+    border: 1px solid rgba(0, 240, 255, 0.05);
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.badge-category h3 {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--hud-cyan);
+    margin-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+    padding-bottom: 0.25rem;
+}
+
+.bullet-list-hud {
+    list-style: none;
+}
+
+.bullet-list-hud li {
+    font-size: 1.05rem;
+    color: #e2e8f0;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.bullet-list-hud li strong {
+    color: var(--hud-orange);
+}
+
+/* ==========================================================================
+   FOOTER STYLE
+   ========================================================================== */
+.hud-footer {
+    border-top: 1px solid rgba(0, 240, 255, 0.1);
+    padding: 0.6rem 2rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #8a9fc4;
+    background: rgba(4, 9, 21, 0.85);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN RULES
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .hud-container {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow-y: visible;
+    }
+    
+    .hud-column {
+        overflow-y: visible;
+    }
+    
+    .console-body {
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hud-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .telemetry-grid, .skills-hud-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .resume-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   WIDGET: JARVIS VOICE CONTROL BUTTONS
+   ========================================================================== */
+.hud-btn-voice {
+    background: transparent;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    color: var(--hud-cyan);
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.05);
+    transition: all 0.3s ease;
+    margin-bottom: 0.25rem;
+}
+
+.hud-btn-voice:hover {
+    background: rgba(0, 240, 255, 0.08);
+    border-color: var(--hud-cyan);
+    box-shadow: 0 0 15px var(--hud-cyan-glow);
+}
+
+.hud-btn-voice.listening {
+    border-color: var(--hud-red);
+    color: var(--hud-red);
+    box-shadow: 0 0 15px rgba(255, 59, 48, 0.3);
+    background: rgba(255, 59, 48, 0.05);
+    animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 59, 48, 0.2); }
+    50% { box-shadow: 0 0 25px rgba(255, 59, 48, 0.4); }
+}
+
+.voice-panel .panel-body {
+    padding: 1rem;
+}
+
+.voice-help {
+    font-style: italic;
+}
+
+/* ==========================================================================
+   WIDGET: HOLOGRAM CARD CONSTRUCTION SWEEP
+   ========================================================================== */
+.hologram-card.constructing::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--hud-cyan);
+    box-shadow: 0 0 15px var(--hud-cyan);
+    animation: construct-sweep 0.6s ease-out forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes construct-sweep {
+    0% { top: 0; opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+
