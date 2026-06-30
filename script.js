@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Who is Midhlaj
         if (cmd.includes('who is midhlaj') || cmd.includes('tell me about midhlaj') || cmd.includes('who is he')) {
-            const reply = "Midhlaj Sidhick is a cybersecurity engineer specializing in SOC operations, vulnerability assessment, and cloud security. He is currently a Server Administrator Intern at Hashroot.";
+            const reply = "Midhlaj Sidhick is a cybersecurity engineer specializing in SOC operations, vulnerability assessment, and cloud security. He is currently a Junior Server Administrator at Hashroot.";
             speakJarvis(reply);
             addConsoleLog(`[JARVIS] ${reply}`, "jarvis-msg");
             audio.playTab();
