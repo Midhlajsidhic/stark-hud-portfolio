@@ -3,370 +3,540 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STARK HUD // MIDHLAJ SIDHICK PORTFOLIO</title>
+    <title>Midhlaj Sidhick // Application Security &amp; Product Security Engineer</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Professional portfolio of Midhlaj Sidhick, Application Security Engineer and Junior Server Administrator. Specialized in web application security, responsible disclosures (including IBS Software RCE), and cloud security.">
+    <meta name="keywords" content="Application Security Engineer, Product Security Engineer, Cyber Security Engineer, Offensive Security, Linux Engineer, Penetration Tester, Security Researcher, Responsible Disclosure, IBS Software RCE, Hashroot Technologies">
+    <meta name="author" content="Midhlaj Sidhick">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="stark-hud">
-    <!-- Grid Scanline Overlay -->
-    <div class="hud-grid-overlay"></div>
-    <div class="hud-scanline"></div>
+<body class="dark-theme">
+    <!-- BACKGROUND DECORATIONS (SUBTLE GRADIENTS) -->
+    <div class="bg-gradient-top"></div>
+    <div class="bg-gradient-bottom"></div>
 
-    <!-- MAIN HEADER -->
-    <header class="hud-header">
-        <div class="header-left">
-            <span class="stark-logo">STARK INDUSTRIES</span>
-            <span class="system-status">SYS_STATUS: <span id="sys-status-text" class="text-warning">STANDBY [10%]</span></span>
-        </div>
-        <div class="header-center">
-            <h1>MARK_80 // INVENT_LAB_PORTFOLIO</h1>
-        </div>
-        <div class="header-right">
-            <span class="datetime" id="hud-time">00:00:00 UTC</span>
-            <span class="security-level">SEC_LEVEL: 05 [RESTRICTED]</span>
-        </div>
-    </header>
-
-    <!-- HUD FRAMEWORK -->
-    <main class="hud-container">
-        <!-- LEFT HUD COLUMN: SYSTEM DIAGNOSTICS & JARVIS CONSOLE -->
-        <section class="hud-column left-pane">
-            <!-- WIDGET 1: ARC REACTOR CONTROLLER -->
-            <div class="hud-panel reactor-panel">
-                <div class="panel-header">
-                    <span class="bracket-decor"></span>
-                    <h3>ARC_REACTOR_MARK_80</h3>
-                </div>
-                <div class="panel-body flex-center">
-                    <div class="arc-reactor-wrapper" id="reactor-trigger">
-                        <div class="outer-ring"></div>
-                        <div class="middle-ring"></div>
-                        <div class="inner-core">
-                            <span class="power-readout" id="reactor-power">10%</span>
-                        </div>
-                        <!-- Hexagonal segment indicators -->
-                        <div class="reactor-segment s1"></div>
-                        <div class="reactor-segment s2"></div>
-                        <div class="reactor-segment s3"></div>
-                        <div class="reactor-segment s4"></div>
-                        <div class="reactor-segment s5"></div>
-                        <div class="reactor-segment s6"></div>
-                    </div>
-                    <p class="click-prompt" id="reactor-prompt">CLICK TO INITIALIZE POWER GRID</p>
+    <!-- MAIN CONTAINER -->
+    <div class="portfolio-container">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar-nav">
+            <div class="profile-block">
+                <div class="profile-avatar">MS</div>
+                <h2 class="profile-name">Midhlaj Sidhick</h2>
+                <p class="profile-role">Application Security Engineer</p>
+                <div class="credibility-badges">
+                    <span class="badge-tag">Responsible Disclosure</span>
+                    <span class="badge-tag">AppSec</span>
+                    <span class="badge-tag">Linux</span>
+                    <span class="badge-tag">AWS</span>
                 </div>
             </div>
-
-            <!-- WIDGET 2: TELEMETRY GRAPHS -->
-            <div class="hud-panel telemetry-panel">
-                <div class="panel-header">
-                    <span class="bracket-decor"></span>
-                    <h3>TELEMETRY_DIAGNOSTICS</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="telemetry-item">
-                        <div class="telemetry-label"><span>EDR_LOG_FLOW</span><span id="log-flow-pct">12 bps</span></div>
-                        <div class="graph-bar"><div class="graph-fill" id="fill-log" style="width: 15%"></div></div>
-                    </div>
-                    <div class="telemetry-item">
-                        <div class="telemetry-label"><span>VAPT_SCAN_RATE</span><span id="scan-rate-pct">8%</span></div>
-                        <div class="graph-bar"><div class="graph-fill" id="fill-scan" style="width: 8%"></div></div>
-                    </div>
-                    <div class="telemetry-item">
-                        <div class="telemetry-label"><span>AWS_CPU_LOAD</span><span id="cpu-load-pct">14%</span></div>
-                        <div class="graph-bar"><div class="graph-fill" id="fill-cpu" style="width: 14%"></div></div>
-                    </div>
-                </div>
+            
+            <nav class="nav-links">
+                <a href="#hero" class="nav-item active" id="nav-hero">Dashboard</a>
+                <a href="#featured-achievement" class="nav-item" id="nav-achievement">Validated RCE</a>
+                <a href="#security-research" class="nav-item" id="nav-research">Security Research</a>
+                <a href="#methodology" class="nav-item" id="nav-methodology">Assessment Methodology</a>
+                <a href="#experience" class="nav-item" id="nav-experience">Experience</a>
+                <a href="#projects" class="nav-item" id="nav-projects">Projects</a>
+                <a href="#skills" class="nav-item" id="nav-skills">Skills &amp; Focus</a>
+                <a href="#contact" class="nav-item" id="nav-contact">Contact</a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <p>&copy; 2026 Midhlaj Sidhick</p>
             </div>
+        </aside>
 
-            <!-- WIDGET: JARVIS VOICE CONTROL -->
-            <div class="hud-panel voice-panel">
-                <div class="panel-header">
-                    <span class="bracket-decor"></span>
-                    <h3>JARVIS_VOICE_CONTROL</h3>
-                </div>
-                <div class="panel-body flex-center" style="gap: 0.5rem; text-align: center;">
-                    <button id="voice-btn" class="hud-btn-voice">🎤 ACTIVATE VOICE SYSTEM</button>
-                    <span id="voice-status" class="text-warning">MIC_STATUS: STANDBY</span>
-                    <p class="voice-help" style="font-size: 0.8rem; color: #8a9fc4; margin-top: 0.5rem;">
-                        Commands: "Jarvis start", "Show skills", "Show experience", "Jarvis, who is Midhlaj?"
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            
+            <!-- SECTION 1: HERO & QUICK HIGHLIGHTS -->
+            <section id="hero" class="content-section active-section">
+                <div class="hero-block">
+                    <span class="hero-subtitle">PERSONAL BRAND &amp; PORTFOLIO</span>
+                    <h1 class="hero-title">Securing Applications, Cloud Infrastructure &amp; Production Environments</h1>
+                    
+                    <p class="hero-desc">
+                        Application Security Engineer specializing in web vulnerability identification, cloud container hardening, and systems operations. Experienced in responsible disclosure and proof-of-concept development. Currently serving as a <strong>Junior Server Administrator</strong> at Hashroot Technologies.
                     </p>
-                </div>
-            </div>
 
-            <!-- WIDGET 3: JARVIS CONSOLE LOG FEED -->
-            <div class="hud-panel jarvis-panel">
-                <div class="panel-header">
-                    <span class="bracket-decor"></span>
-                    <h3>JARVIS_COMM_FEED</h3>
-                </div>
-                <div class="panel-body console-body" id="jarvis-console">
-                    <div class="console-row system-msg">[SYSTEM] Stark Diagnostic OS v80.1 initialized...</div>
-                    <div class="console-row system-msg">[SYSTEM] Awaiting power reactor synchronization...</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CENTER HUD COLUMN: THE MAIN RESUME DATA (HOLOGRAMS) -->
-        <section class="hud-column center-pane disabled-hud" id="main-resume-pane">
-            <div class="resume-tabs no-print">
-                <button class="tab-btn active" data-tab="tab-summary">DIAGNOSTIC</button>
-                <button class="tab-btn" data-tab="tab-skills">ARMORY</button>
-                <button class="tab-btn" data-tab="tab-experience">MISSIONS</button>
-                <button class="tab-btn" data-tab="tab-projects">CORES</button>
-                <button class="tab-btn" data-tab="tab-credentials">BADGES</button>
-            </div>
-
-            <!-- TAB 1: SUMMARY & CONTACT -->
-            <div class="resume-tab-content active" id="tab-summary">
-                <div class="hologram-card">
-                    <div class="card-decor top-left"></div>
-                    <div class="card-decor top-right"></div>
-                    <div class="card-decor bottom-left"></div>
-                    <div class="card-decor bottom-right"></div>
-                    
-                    <div class="hologram-header">
-                        <h2>IDENTITY_DIAGNOSTICS // MIDHLAJ SIDHICK</h2>
-                        <span class="hologram-tag">TARGET: SECURITY ENGINEER</span>
+                    <!-- PROFESSIONAL IMPACT METRICS -->
+                    <div class="impact-metrics-container">
+                        <div class="metric-card">
+                            <span class="metric-num">1</span>
+                            <span class="metric-lbl">Validated RCE Disclosure</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-num">10+</span>
+                            <span class="metric-lbl">Professional Reports</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-num">Admin</span>
+                            <span class="metric-lbl">Hashroot Server Admin</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-num">Web/API</span>
+                            <span class="metric-lbl">Infrastructure Assessed</span>
+                        </div>
                     </div>
+
+                    <div class="cta-buttons">
+                        <a href="../professional_resume/index.html" target="_blank" class="btn-primary" id="cta-resume">View/Print Resume</a>
+                        <a href="#contact" class="btn-secondary" id="cta-contact">Contact Me</a>
+                    </div>
+                </div>
+
+                <!-- PROFILE QUICK HIGHLIGHTS -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card highlights-card">
+                        <h3>Quick Highlights</h3>
+                        <ul class="highlights-bullets">
+                            <li><strong>IBS Software RCE:</strong> Disclosed a Remote Code Execution vulnerability, validated and resolved by IBS.</li>
+                            <li><strong>Security Hall of Fame:</strong> First researcher selected for the IBS Software Security Hall of Fame recognition (Recognition confirmed by IBS Software Security Team; public Hall of Fame page pending publication).</li>
+                            <li><strong>Infrastructure Operations:</strong> Full-time Junior Server Administrator at Hashroot Technologies, securing and hardening production hosts.</li>
+                            <li><strong>Responsible Disclosure:</strong> Successfully conducted multiple external security reviews and internal security audits.</li>
+                            <li><strong>Core Competencies:</strong> Proficient in web/API vulnerability analysis, Linux administration, and AWS IAM/VPC hardening.</li>
+                        </ul>
+                    </div>
+
+                    <!-- DISCLOSURE PHILOSOPHY -->
+                    <div class="dashboard-card philosophy-card">
+                        <h3>Professional Philosophy</h3>
+                        <blockquote class="philosophy-quote">
+                            "I focus on responsible disclosure, reproducible technical evidence, clear communication, and collaborative remediation to help organizations improve their security posture."
+                        </blockquote>
+                        <div class="phil-author">&mdash; Midhlaj Sidhick</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: VALIDATED RESPONSIBLE DISCLOSURE -->
+            <section id="featured-achievement" class="content-section">
+                <h2 class="section-heading">Validated Responsible Disclosure</h2>
+                
+                <div class="featured-rce-card">
+                    <div class="decor-corner top-left"></div>
+                    <div class="decor-corner top-right"></div>
+                    <div class="decor-corner bottom-left"></div>
+                    <div class="decor-corner bottom-right"></div>
+
+                    <div class="rce-header">
+                        <span class="severity-badge critical">VALIDATED RESPONSIBLE DISCLOSURE</span>
+                        <span class="target-name">IBS Software</span>
+                    </div>
+
+                    <h3 class="rce-title">Remote Code Execution (RCE) Vulnerability</h3>
                     
-                    <div class="hologram-body">
-                        <p class="summary-paragraph">
-                            Results-driven Computer Science (Cybersecurity) graduate with hands-on experience in Security Operations (SOC), AWS cloud security, and Linux administration (AlmaLinux/Ubuntu Server). Skilled in scripting, system auditing, and network security configuration. Proven leadership capabilities as Department Chairman and NSS Secretary. Seeking entry-level roles in SOC, Cloud/Security Operations, or Linux Support.
-                        </p>
+                    <p class="rce-description">
+                        Identified and responsibly disclosed a Remote Code Execution (RCE) vulnerability affecting IBS Software systems. By crafting a safe, professional Proof-of-Concept (PoC) exploit, I demonstrated how an attacker could bypass boundary restrictions and execute arbitrary commands on production instances.
+                    </p>
+
+                    <div class="rce-impact-block">
+                        <h4>Impact &amp; Containment Details</h4>
+                        <ul>
+                            <li><strong>Independent Validation:</strong> The IBS Software Security Team validated the issue immediately upon receiving the vulnerability report.</li>
+                            <li><strong>Immediate Remediation:</strong> Containment and hotpatch measures were deployed across the affected infrastructure to secure systems.</li>
+                            <li><strong>Hall of Fame Recognition:</strong> Selected as the first external security researcher to be recognized in the <strong>IBS Software Security Hall of Fame</strong> (Recognition confirmed by IBS Software Security Team; public Hall of Fame page pending publication).</li>
+                        </ul>
+                    </div>
+
+                    <div class="rce-badges">
+                        <span class="rce-tag">PoC Development</span>
+                        <span class="rce-tag">Input Validation Bypass</span>
+                        <span class="rce-tag">System Containment</span>
+                        <span class="rce-tag">Collaborative Remediation</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: SECURITY RESEARCH HIGHLIGHTS -->
+            <section id="security-research" class="content-section">
+                <h2 class="section-heading">Security Research Highlights</h2>
+                <p class="section-desc">Selected responsible disclosures, validated vulnerability findings, and application security assessments.</p>
+                
+                <div class="research-registry-list">
+                    <!-- ENTRY 1: IBS SOFTWARE -->
+                    <div class="registry-card">
+                        <div class="registry-header">
+                            <span class="target-label">Target: IBS Software</span>
+                            <span class="severity-badge critical">Validated RCE</span>
+                        </div>
+                        <h3 class="registry-title">Remote Code Execution (RCE)</h3>
+                        <p class="registry-desc">Responsibly disclosed RCE vulnerability in enterprise software environment. Designed safe PoC to demonstrate remote execution risks. Verified patch and containment steps alongside security teams (Recognition confirmed by IBS Software Security Team; public Hall of Fame page pending publication).</p>
                         
-                        <div class="contact-telemetry">
-                            <h3>COMMUNICATION_CHANNELS</h3>
-                            <div class="telemetry-grid">
-                                <div class="tele-box">
-                                    <span class="label">COMMS_LINK</span>
-                                    <span class="value"><a href="tel:+919605114550">+91 9605114550</a></span>
+                        <div class="registry-meta-grid">
+                            <div><strong>Category:</strong> Remote Code Execution</div>
+                            <div><strong>Status:</strong> Validated &amp; Resolved</div>
+                            <div><strong>Technologies:</strong> Enterprise Web Frameworks</div>
+                            <div><strong>Skills:</strong> Exploit PoC, Responsible Disclosure, CVSS Mapping</div>
+                        </div>
+                    </div>
+
+                    <!-- ENTRY 2: HASHROOT -->
+                    <div class="registry-card">
+                        <div class="registry-header">
+                            <span class="target-label">Target: Hashroot Technologies</span>
+                            <span class="severity-badge high">High Severity</span>
+                        </div>
+                        <h3 class="registry-title">Internal Google Cloud API Key Exposure &amp; Ghost CMS Hardening</h3>
+                        <p class="registry-desc">Conducted internal application audits on infrastructure. Discovered exposed Google Cloud SDK API keys and critical configuration vulnerabilities in Ghost CMS deployments. Hardened CMS routing rules and revoked exposed credentials.</p>
+                        
+                        <div class="registry-meta-grid">
+                            <div><strong>Category:</strong> Secrets Exposure &amp; Misconfiguration</div>
+                            <div><strong>Status:</strong> Validated &amp; Resolved</div>
+                            <div><strong>Technologies:</strong> Google Cloud API, Ghost CMS, Nginx</div>
+                            <div><strong>Skills:</strong> Secrets Auditing, Routing Hardening, VPC Audits</div>
+                        </div>
+                    </div>
+
+                    <!-- ENTRY 3: ICET -->
+                    <div class="registry-card">
+                        <div class="registry-header">
+                            <span class="target-label">Target: ICET</span>
+                            <span class="severity-badge medium">Medium Severity</span>
+                        </div>
+                        <h3 class="registry-title">WordPress Security Assessment &amp; Plugin Vulnerabilities</h3>
+                        <p class="registry-desc">Performed WordPress staging application audits. Identified security misconfigurations and plugin bugs allowing metadata disclosure. Drafted risk and business impact reports adopted for site remediation.</p>
+                        
+                        <div class="registry-meta-grid">
+                            <div><strong>Category:</strong> Security Misconfiguration &amp; Plugin Audits</div>
+                            <div><strong>Status:</strong> Validated &amp; Resolved</div>
+                            <div><strong>Technologies:</strong> WordPress, PHP, Apache</div>
+                            <div><strong>Skills:</strong> Risk Assessment, Business Impact Analysis, Reporting</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: ASSESSMENT METHODOLOGY -->
+            <section id="methodology" class="content-section">
+                <h2 class="section-heading">Assessment Methodology</h2>
+                <p class="section-desc">My structured technical approach to auditing applications, network boundaries, and cloud configurations.</p>
+                
+                <div class="methodology-timeline">
+                    <div class="method-card">
+                        <div class="method-num">01</div>
+                        <div class="method-content">
+                            <h4>Reconnaissance &amp; Information Gathering</h4>
+                            <p>Passive and active information gathering using subdomain enumerations, WHOIS queries, and OSINT frameworks to discover exposed network points.</p>
+                        </div>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="method-num">02</div>
+                        <div class="method-content">
+                            <h4>Attack Surface Mapping &amp; Fingerprinting</h4>
+                            <p>Mapping endpoints, ports, services, API routings, and identifying technology versions/frameworks to locate potential misconfigurations.</p>
+                        </div>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="method-num">03</div>
+                        <div class="method-content">
+                            <h4>Vulnerability Analysis &amp; OWASP Auditing</h4>
+                            <p>Testing application boundaries against OWASP Top 10 guidelines (broken access controls, injection, API authentication bypass, business logic flaws).</p>
+                        </div>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="method-num">04</div>
+                        <div class="method-content">
+                            <h4>Exploit Proof-of-Concept (PoC) Development</h4>
+                            <p>Developing safe, reproducible Python/bash scripts to validate findings and demonstrate practical business risk without disrupting client production operations.</p>
+                        </div>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="method-num">05</div>
+                        <div class="method-content">
+                            <h4>Reporting &amp; Remediation Validation</h4>
+                            <p>Drafting comprehensive reports outlining technical details, CVSS scores, business impacts, and collaborating with developers to validate security patches.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: EXPERIENCE -->
+            <section id="experience" class="content-section">
+                <h2 class="section-heading">Professional Experience</h2>
+                
+                <div class="experience-timeline">
+                    <!-- JOB 1 -->
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="job-company">
+                                <h3>Hashroot Technologies</h3>
+                                <span class="job-loc">Kakkanad, Kochi (Full-time)</span>
+                            </div>
+                            <span class="job-date">May 2026 &mdash; Present</span>
+                        </div>
+                        <h4 class="job-role">Junior Server Administrator</h4>
+                        
+                        <ul class="job-bullets">
+                            <li><strong>Security Assessments:</strong> Performed internal web application security assessments alongside infrastructure operations, identifying Google Cloud API key exposures and critical configuration flaws in Ghost CMS.</li>
+                            <li><strong>Vulnerability Reporting:</strong> Validated security vulnerabilities through responsible disclosure, authoring detailed technical reports adopted by security and engineering teams for remediation.</li>
+                            <li><strong>Production Linux Support:</strong> Managed and troubleshot production Linux (AlmaLinux, Ubuntu) and Windows server environments, minimizing system bottlenecks.</li>
+                            <li><strong>AWS Cloud Security:</strong> Configured AWS cloud infrastructure (EC2, S3, IAM, VPC), enforcing least-privilege access controls and auditing network security groups.</li>
+                            <li><strong>Auditing &amp; Compliance:</strong> Audited HTTP response headers, Content Security Policies (CSP), and CORS rules to mitigate information disclosure risks.</li>
+                            <li><strong>Hardening:</strong> Hardened server remote access protocols (SSH), firewalls (iptables/firewalld), and deployed centralized logging.</li>
+                        </ul>
+                    </div>
+
+                    <!-- JOB 2 -->
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="job-company">
+                                <h3>Techmagi</h3>
+                                <span class="job-loc">Kakkanad, Kochi</span>
+                            </div>
+                            <span class="job-date">June 2025</span>
+                        </div>
+                        <h4 class="job-role">Cybersecurity &amp; Ethical Hacking Intern</h4>
+                        <ul class="job-bullets">
+                            <li><strong>Web App Testing:</strong> Conducted black-box web application assessments using Nmap and Burp Suite to validate OWASP Top 10 vulnerabilities (XSS, SQLi, Auth bypass).</li>
+                            <li><strong>Reporting:</strong> Drafted technical reports detailing vulnerability assessments, CVSS metrics, risk rankings, and remediation validation.</li>
+                        </ul>
+                    </div>
+
+                    <!-- JOB 3 -->
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="job-company">
+                                <h3>Techbyheart</h3>
+                                <span class="job-loc">Kochi, Kerala</span>
+                            </div>
+                            <span class="job-date">January 2025</span>
+                        </div>
+                        <h4 class="job-role">Ethical Hacking Intern</h4>
+                        <ul class="job-bullets">
+                            <li><strong>Vulnerability Auditing:</strong> Conducted vulnerability scanning and configuration audits across standard service ports (SSH, FTP, HTTP) in sandboxed virtual labs.</li>
+                            <li><strong>PoC Scripting:</strong> Created proof-of-concept scripts in Python to demonstrate impact and validate security bugs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: PROJECTS -->
+            <section id="projects" class="content-section">
+                <h2 class="section-heading">Security Projects &amp; Prototypes</h2>
+                <p class="section-desc">Engineered security systems and open-source tooling.</p>
+                
+                <div class="projects-grid">
+                    <!-- PROJECT 1 -->
+                    <div class="project-card">
+                        <h3 class="proj-title">AI-Powered EDR System</h3>
+                        <p class="proj-desc">
+                            An endpoint monitoring agent written in Python that aggregates system event logs and forwards them to Wazuh/Elastic Stack. Integrated Ollama (LLM) classification to automate alert triage, reducing false positive alerts and analyst overhead by 40%.
+                        </p>
+                        <div class="proj-tech">
+                            <span>Python</span>
+                            <span>Wazuh</span>
+                            <span>Elastic Stack</span>
+                            <span>Ollama</span>
+                            <span>FastAPI</span>
+                        </div>
+                    </div>
+
+                    <!-- PROJECT 2 -->
+                    <div class="project-card">
+                        <h3 class="proj-title">ESP32 Localization &amp; Signal Tracking</h3>
+                        <p class="proj-desc">
+                            Developed custom ESP32 node firmware to capture 802.11 Wi-Fi probe frames and Bluetooth signals. Implemented RSSI-based triangulation algorithms, mapping physical coordinates with ~95% precision.
+                        </p>
+                        <div class="proj-tech">
+                            <span>ESP32 C++</span>
+                            <span>Python GUI</span>
+                            <span>Networking</span>
+                            <span>Automation</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 7: SKILLS & LEARNING -->
+            <section id="skills" class="content-section">
+                <div class="skills-learning-grid">
+                    <!-- SKILLS COLUMN -->
+                    <div class="skills-block">
+                        <h2 class="section-heading">Security Tech Stack</h2>
+                        <p class="section-desc">Key technical competencies sorted by functional domain.</p>
+                        
+                        <div class="skills-category-group">
+                            <div class="skill-cat">
+                                <h4>Application Security</h4>
+                                <div class="skill-badges">
+                                    <span>OWASP Top 10</span>
+                                    <span>API Security</span>
+                                    <span>AuthN &amp; AuthZ Testing</span>
+                                    <span>Business Logic Testing</span>
+                                    <span>Security Reporting</span>
                                 </div>
-                                <div class="tele-box">
-                                    <span class="label">SECURE_MAIL</span>
-                                    <span class="value"><a href="mailto:midhlajsidhick1@gmail.com">midhlajsidhick1@gmail.com</a></span>
+                            </div>
+                            
+                            <div class="skill-cat">
+                                <h4>Recon &amp; Penetration Testing</h4>
+                                <div class="skill-badges">
+                                    <span>Burp Suite</span>
+                                    <span>Nmap</span>
+                                    <span>ffuf</span>
+                                    <span>httpx</span>
+                                    <span>subfinder</span>
+                                    <span>Amass</span>
+                                    <span>Nuclei</span>
+                                    <span>Reconnaissance</span>
                                 </div>
-                                <div class="tele-box">
-                                    <span class="label">SECURE_NET</span>
-                                    <span class="value"><a href="https://linkedin.com/in/midhlaj-sidick007" target="_blank">LinkedIn Profile</a></span>
+                            </div>
+
+                            <div class="skill-cat">
+                                <h4>Infrastructure &amp; Cloud</h4>
+                                <div class="skill-badges">
+                                    <span>Linux Administration</span>
+                                    <span>SSH Protocol</span>
+                                    <span>Docker</span>
+                                    <span>AWS EC2/S3/IAM/VPC</span>
+                                    <span>Nginx</span>
+                                    <span>Apache</span>
+                                    <span>System Hardening</span>
+                                    <span>Networking</span>
                                 </div>
-                                <div class="tele-box">
-                                    <span class="label">PORTFOLIO_NET</span>
-                                    <span class="value"><a href="https://midhlajsidhic.github.io/cyber-portfolio/" target="_blank">midhlajsidhic.github.io/cyber-portfolio/</a></span>
+                            </div>
+
+                            <div class="skill-cat">
+                                <h4>Programming &amp; Monitoring</h4>
+                                <div class="skill-badges">
+                                    <span>Python</span>
+                                    <span>JavaScript</span>
+                                    <span>Bash Scripting</span>
+                                    <span>Git</span>
+                                    <span>REST APIs</span>
+                                    <span>Wazuh</span>
+                                    <span>Elastic Stack (ELK)</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-cat">
+                                <h4>Security Writing &amp; Documentation</h4>
+                                <div class="skill-badges">
+                                    <span>Responsible Disclosure Reports</span>
+                                    <span>Internal Security Assessments</span>
+                                    <span>Executive Summaries</span>
+                                    <span>Proof-of-Concept Documentation</span>
+                                    <span>Remediation Guidance</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- TAB 2: SKILLS MODULE -->
-            <div class="resume-tab-content" id="tab-skills">
-                <div class="hologram-card">
-                    <div class="card-decor top-left"></div>
-                    <div class="card-decor top-right"></div>
-                    <div class="card-decor bottom-left"></div>
-                    <div class="card-decor bottom-right"></div>
-
-                    <div class="hologram-header">
-                        <h2>ARMORY_MODULES // SKILLS MATRIX</h2>
-                        <span class="hologram-tag">READY FOR DEPLOYMENT</span>
-                    </div>
-
-                    <div class="hologram-body skills-hud-grid">
-                        <div class="skill-group">
-                            <h4>SECURITY_OPS & SIEM</h4>
-                            <ul>
-                                <li>Log Auditing & Analysis</li>
-                                <li>Threat Detection & Alert Triage</li>
-                                <li>Incident Response Workflows</li>
-                                <li>ELK Stack Integration (Basics)</li>
+                    <!-- CURRENT FOCUS COLUMN -->
+                    <div class="learning-block">
+                        <h2 class="section-heading">Current Focus</h2>
+                        <p class="section-desc">Core domains of active project focus and professional specialization.</p>
+                        
+                        <div class="learning-card">
+                            <ul class="learning-list">
+                                <li>
+                                    <strong>Application Security</strong>
+                                    <p>Conducting regular OWASP Top 10 auditing, business logic vulnerability discovery, and security reporting.</p>
+                                </li>
+                                <li>
+                                    <strong>Product Security</strong>
+                                    <p>Hardening application features, reviewing data encryption standards, and checking authentication integrity.</p>
+                                </li>
+                                <li>
+                                    <strong>Secure SDLC &amp; Threat Modeling</strong>
+                                    <p>Enforcing pipeline automated security checkpoints (SAST/DAST) and modeling threats via STRIDE.</p>
+                                </li>
+                                <li>
+                                    <strong>Cloud &amp; Container Security</strong>
+                                    <p>Hardening Docker containers, securing AWS access parameters (least privilege), and reviewing VPC security routing.</p>
+                                </li>
+                                <li>
+                                    <strong>API Security</strong>
+                                    <p>Auditing REST endpoints, authorization checks (BOLA/BFLA), and rate-limiting configurations.</p>
+                                </li>
                             </ul>
                         </div>
-                        <div class="skill-group">
-                            <h4>VAPT & OFFENSIVE_SEC</h4>
-                            <ul>
-                                <li>Network Recon & Scanning</li>
-                                <li>Vulnerability Assessment</li>
-                                <li>Penetration Testing Simulations</li>
-                                <li>OWASP Top 10 Audits</li>
-                            </ul>
-                        </div>
-                        <div class="skill-group">
-                            <h4>SYSTEMS, CLOUD & NETWORKS</h4>
-                            <ul>
-                                <li>Linux (AlmaLinux, Rocky, Ubuntu, Kali)</li>
-                                <li>AWS (EC2, S3, IAM, VPC)</li>
-                                <li>Windows Server Administration</li>
-                                <li>TCP/IP, Firewalls, Routing</li>
-                            </ul>
-                        </div>
-                        <div class="skill-group">
-                            <h4>PROGRAMMING & AUTOMATION</h4>
-                            <ul>
-                                <li>Python (Security Automation, Scripting)</li>
-                                <li>Bash Scripting</li>
-                                <li>Git, GitHub Workflows</li>
-                            </ul>
+
+                        <!-- CERTIFICATIONS -->
+                        <h2 class="section-heading" style="margin-top: 2rem;">Certifications</h2>
+                        <div class="certs-list">
+                            <div class="cert-card">
+                                <strong>Offenso Certified Ethical Hacker</strong>
+                                <span>Offense Hackers Academy</span>
+                            </div>
+                            <div class="cert-card">
+                                <strong>Cisco Certified Ethical Hacker</strong>
+                                <span>Cisco Networking Academy</span>
+                            </div>
+                            <div class="cert-card">
+                                <strong>Google Cybersecurity Certificate</strong>
+                                <span>Google Credential</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- TAB 3: MISSIONS EXPERIENCE -->
-            <div class="resume-tab-content" id="tab-experience">
-                <div class="hologram-card">
-                    <div class="card-decor top-left"></div>
-                    <div class="card-decor top-right"></div>
-                    <div class="card-decor bottom-left"></div>
-                    <div class="card-decor bottom-right"></div>
-
-                    <div class="hologram-header">
-                        <h2>COMPLETED_MISSIONS // EXPERIENCE</h2>
-                        <span class="hologram-tag">CHRONOLOGICAL RECORD</span>
+            <!-- SECTION 8: CONTACT -->
+            <section id="contact" class="content-section">
+                <h2 class="section-heading">Get In Touch</h2>
+                <p class="section-desc">Connect for professional collaborations, security consultation, or hiring opportunities.</p>
+                
+                <div class="contact-grid">
+                    <!-- CONTACT DATA -->
+                    <div class="contact-info-block">
+                        <div class="info-item">
+                            <span class="info-label">Secure Email</span>
+                            <span class="info-val"><a href="mailto:midhlajsidhick1@gmail.com">midhlajsidhick1@gmail.com</a></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Call Comms</span>
+                            <span class="info-val"><a href="tel:+919605114550">+91 9605114550</a></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Professional Net</span>
+                            <span class="info-val"><a href="https://linkedin.com/in/midhlaj-sidick007" target="_blank">LinkedIn Profile</a></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Secure Repositories</span>
+                            <span class="info-val"><a href="https://github.com/midhlajsidhic" target="_blank">GitHub Profile</a></span>
+                        </div>
                     </div>
 
-                    <div class="hologram-body experience-timeline">
-                        <div class="timeline-item">
-                            <div class="time-header">
-                                <span class="time-title">Junior Server Administrator</span>
-                                <span class="time-date">May 2026 – Present</span>
+                    <!-- CONTACT FORM -->
+                    <div class="contact-form-block">
+                        <form id="portfolio-contact-form" onsubmit="return handleFormSubmit(event)">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" required placeholder="Your Name">
                             </div>
-                            <span class="time-agency">Hashroot | Kakkanad, Kochi (Infopark)</span>
-                            <ul class="time-bullets">
-                                <li>Assisted in Linux (AlmaLinux, Ubuntu) and Windows server administration, user management, and security patch deployments.</li>
-                                <li>Configured remote access protocols (SSH, firewalls) and deployed infrastructure monitoring agents on AWS instances (EC2, S3).</li>
-                            </ul>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="time-header">
-                                <span class="time-title">Cybersecurity & Ethical Hacking Intern</span>
-                                <span class="time-date">June 2025</span>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required placeholder="your.email@domain.com">
                             </div>
-                            <span class="time-agency">Techmagi | Kakkanad, Kochi</span>
-                            <ul class="time-bullets">
-                                <li>Performed network scanning, host reconnaissance, and vulnerability analysis using Nmap and Burp Suite in sandboxed lab environments.</li>
-                                <li>Analyzed network traffic logs with Wireshark and drafted technical VAPT reports mapping findings to CVSS metrics.</li>
-                            </ul>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="time-header">
-                                <span class="time-title">Ethical Hacking Intern</span>
-                                <span class="time-date">Jan 2025</span>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" rows="5" required placeholder="Professional inquiries..."></textarea>
                             </div>
-                            <span class="time-agency">Techbyheart | Kochi, Kerala</span>
-                            <ul class="time-bullets">
-                                <li>Conducted vulnerability assessments and penetration testing simulations on Linux-based virtual environments.</li>
-                                <li>Identified weaknesses in standard services (SSH, FTP) and offered actionable remediation solutions.</li>
-                            </ul>
-                        </div>
+                            <button type="submit" class="btn-primary" id="form-submit-btn">Send Secure Message</button>
+                            <span id="form-feedback" class="form-feedback-text"></span>
+                        </form>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- TAB 4: CORES PROJECTS -->
-            <div class="resume-tab-content" id="tab-projects">
-                <div class="hologram-card">
-                    <div class="card-decor top-left"></div>
-                    <div class="card-decor top-right"></div>
-                    <div class="card-decor bottom-left"></div>
-                    <div class="card-decor bottom-right"></div>
+        </main>
+    </div>
 
-                    <div class="hologram-header">
-                        <h2>PROTOTYPE_CORES // PROJECTS</h2>
-                        <span class="hologram-tag">ENGINEERED WORK</span>
-                    </div>
-
-                    <div class="hologram-body experience-timeline">
-                        <div class="timeline-item">
-                            <div class="time-header">
-                                <span class="time-title">AI Endpoint Detection & Response (EDR)</span>
-                                <span class="time-tech">Python, LLM</span>
-                            </div>
-                            <ul class="time-bullets">
-                                <li>Engineered a simulated EDR host agent to monitor operating system logs and detect threat patterns in real-time.</li>
-                                <li>Built a Python-based pipeline to parse logs, integrating an LLM classifier to reduce triage overhead by 40%.</li>
-                                <li>Programmed automated response actions (e.g. process termination) upon high-risk threat triggers.</li>
-                            </ul>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="time-header">
-                                <span class="time-title">Wireless Device Localization System</span>
-                                <span class="time-tech">ESP32, Python GUI</span>
-                            </div>
-                            <ul class="time-bullets">
-                                <li>Developed a hardware-software system using ESP32 to monitor wireless networks and localize Wi-Fi/Bluetooth signals with ~95% accuracy.</li>
-                                <li>Created a custom Python desktop GUI for real-time visualization of tracked physical devices and signal logs.</li>
-                            </ul>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="time-header">
-                                <span class="time-title">AI Security & Prompt Injection Testing</span>
-                                <span class="time-tech">AI Threat Research</span>
-                            </div>
-                            <ul class="time-bullets">
-                                <li>Analyzed LLM prompt injection and security manipulation techniques, mapping findings to the OWASP Top 10 for LLMs.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 5: BADGES & CERTIFICATIONS -->
-            <div class="resume-tab-content" id="tab-credentials">
-                <div class="hologram-card">
-                    <div class="card-decor top-left"></div>
-                    <div class="card-decor top-right"></div>
-                    <div class="card-decor bottom-left"></div>
-                    <div class="card-decor bottom-right"></div>
-
-                    <div class="hologram-header">
-                        <h2>INVENTORY_BADGES // CREDENTIALS & CTFs</h2>
-                        <span class="hologram-tag">VERIFIED DATABASES</span>
-                    </div>
-
-                    <div class="hologram-body badges-grid">
-                        <div class="badge-category">
-                            <h3>CERTIFIED_CREDENTIALS</h3>
-                            <ul class="bullet-list-hud">
-                                <li><strong>Ethical Hacking:</strong> Offense Hackers Academy</li>
-                                <li><strong>Ethical Hacking:</strong> Cisco Networking Academy</li>
-                                <li><strong>Foundations of Cybersecurity:</strong> Google Certificate</li>
-                            </ul>
-                        </div>
-
-                        <div class="badge-category">
-                            <h3>VICTORIES_&_COMMENDATIONS</h3>
-                            <ul class="bullet-list-hud">
-                                <li>🏆 <strong>3rd Place — National CTF</strong> (ASIET Hackathon): Competed against 50+ collegiate teams nationwide in cryptography, forensics, and web challenges.</li>
-                                <li>🎯 <strong>Advent of Cyber 2024</strong> (TryHackMe): Completed 24 days of hands-on challenges covering SOC monitoring and cloud security labs.</li>
-                            </ul>
-                        </div>
-
-                        <div class="badge-category">
-                            <h3>LEADERSHIP_REGISTRY</h3>
-                            <ul class="bullet-list-hud">
-                                <li>👔 <strong>Department Chairman (AI & CS):</strong> Managed 15+ student coordinators to host tech hackathons for 300+ peers.</li>
-                                <li>🤝 <strong>NSS Volunteer Secretary:</strong> Managed regional community camps and team coordination.</li>
-                                <li>🎓 <strong>College Union Representative:</strong> Elected representative advocating for student academic and cultural programs.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="hud-footer no-print">
-        <p>STARK INDUSTRIES SYSTEM OS // FRIDAY v8.2 // INTEGRATED DATA DEPLOYMENT</p>
-    </footer>
-
+    <!-- MAIN PORTFOLIO LOGIC -->
     <script src="script.js"></script>
 </body>
 </html>

@@ -41,5 +41,5 @@ http.createServer((req, res) => {
         }
     });
 }).listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}/`);
+    console.log(`Professional AppSec Portfolio running at http://localhost:${PORT}/`);
 });
